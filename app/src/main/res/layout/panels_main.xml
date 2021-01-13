@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/gridContainer" android:background="#1C1F22"
+                android:gravity="center" android:visibility="visible">
+
+    <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/blurTesting"
+            android:scaleType="fitXY" app:srcCompat="@mipmap/testimage" android:visibility="invisible"/>
+    <GridView
+            android:id="@+id/grid_reference"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:numColumns="4"
+            android:verticalSpacing="15dp" android:padding="10dp" android:visibility="gone"
+            tools:horizontalSpacing="15dp" android:background="#929292"/>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:id="@+id/panels_bg_anims">
+    </RelativeLayout>
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:gravity="center" android:id="@+id/panels_container">
+    </RelativeLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/loadingSignContainer">
+
+        <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/animate_transparent_bg"
+                android:background="#001F2629"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@color/LoadingBG"/>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:gravity="center" android:id="@+id/loading_img"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loading_img_icon"
+                    app:srcCompat="@drawable/ic_launcher_foreground"/>
+            <TextView
+                    android:text="Esperando PC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/loading_img_text"
+                    android:textColor="#FFFFFF" android:textSize="20sp"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

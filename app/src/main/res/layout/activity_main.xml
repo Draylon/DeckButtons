@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity" android:background="#273542" android:clickable="false"
+        android:layout_gravity="center"
+        android:id="@+id/mainWindow" android:orientation="vertical" android:gravity="center">
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@mipmap/ic_launcher_round" android:id="@+id/app_logo"
+            android:cropToPadding="false"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:gravity="center" android:layout_margin="10dp"
+            android:layout_gravity="center">
+        <Button
+                android:text="USB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/usb_sel" android:layout_weight="1"
+                android:layout_margin="5dp"/>
+        <Button
+                android:text="WIFI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/wifi_sel" android:layout_weight="1"
+                android:layout_margin="5dp"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:id="@+id/mod_expand" android:visibility="gone">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:text="IP"
+                    android:ems="10"
+                    android:id="@+id/ip_addr_box" android:layout_weight="1" android:gravity="center"
+                    android:textColor="#FFFFFF"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/port_addr_box" android:layout_weight="1" android:text="port"
+                    android:gravity="center"
+                    android:textColor="#FFFFFF"/>
+        </LinearLayout>
+        <Button
+                android:text="Conectar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/w_log_button" android:layout_margin="30dp"/>
+    </LinearLayout>
+</LinearLayout>
