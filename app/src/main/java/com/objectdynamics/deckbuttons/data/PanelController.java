@@ -2,13 +2,11 @@ package com.objectdynamics.deckbuttons.data;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.View;
 import android.widget.RelativeLayout;
-import com.objectdynamics.deckbuttons.R;
+import com.objectdynamics.deckbuttons.util.comms.SocketSendBroadcast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.Semaphore;
@@ -19,14 +17,12 @@ public class PanelController  {
     private JSONArray panel_array_data;
     private ArrayList<Panel> panel_array = new ArrayList<Panel>();
 
-
-
-    public PanelController(Context ctx, JSONObject json_panels) throws JSONException{
+    public PanelController(Context ctx, JSONObject json_panels, SocketSendBroadcast<String> sendBuffer) throws JSONException{
         this.ctx=ctx;
         this.current = json_panels.getInt("current");
         this.panel_array_data = json_panels.getJSONArray("panel_array");
-        for(int ii=0;ii < panel_array_data.length();ii++) {
-            this.panel_array.add(new Panel(ctx, this.panel_array_data.getJSONObject(ii)));
+        for(int ii=0;ii < panel_array_data.length();ii++){
+            this.panel_array.add(new Panel(ctx, this.panel_array_data.getJSONObject(ii),sendBuffer));
         }
     }
     public int getCurrentIndex() { return current; }

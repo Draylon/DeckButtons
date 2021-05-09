@@ -14,5 +14,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:id="@+id/panel_grid"
             android:layout_below="@+id/panel_title" android:horizontalSpacing="15dp" android:verticalSpacing="15dp"
-            android:numColumns="5" android:padding="15dp"/>
+            android:numColumns="5" android:padding="15dp" android:gravity="center"/>
 </RelativeLayout>

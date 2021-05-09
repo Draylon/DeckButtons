@@ -4,37 +4,46 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Picture;
 import android.media.Image;
 import android.util.AttributeSet;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.*;
+import androidx.annotation.Nullable;
 import com.objectdynamics.deckbuttons.R;
+import com.objectdynamics.deckbuttons.data.Action;
+import com.objectdynamics.deckbuttons.data.Panel;
+import com.objectdynamics.deckbuttons.data.PanelButton;
 
 public class CustomButton extends RelativeLayout {
 
-    TextView title;
-    ImageView icon;
+    private TextView title;
+    private ImageView icon;
+    private Context ctx;
+    private Action action;
 
-    public CustomButton(Context context, String title) {
-        this(context,title,null);
+    public CustomButton(Context context,Action action, String title) {
+        this(context,action,title,null);
     }
-    public CustomButton(Context context, String title, Bitmap icon) {
+    public CustomButton(Context context, final Action action, String title, Bitmap icon) {
         super(context);
         inflate(context, R.layout.custom_button, this);
 
-        /*int[] sets = {R.attr.cButton_title, R.attr.cButton_button};
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, sets);
-        CharSequence title = typedArray.getText(0);
-        CharSequence buyButton = typedArray.getText(1);
-        typedArray.recycle();*/
-
+        this.ctx=context;
+        this.action = action;
         this.title = (TextView) findViewById(R.id.cButton_title);
         this.icon = (ImageView) findViewById(R.id.cButton_icon);
         setTitle(title);
         if(icon!=null) setIcon(icon);
+        this.setOnClickListener(clickListener);
+        this.title.setOnClickListener(clickListener);
+        this.icon.setOnClickListener(clickListener);
     }
+
+    OnClickListener clickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) { CustomButton.this.action.run(); }
+    };
 
     public TextView getTitle() {
         return title;
@@ -56,5 +65,14 @@ public class CustomButton extends RelativeLayout {
     public CustomButton setIcon(Bitmap icon) {
         if(icon != null) this.icon.setImageBitmap(icon);
         return this;
+    }
+
+    public void setOnClickListener() {
+    }
+
+    public void setAllClickable(boolean b) {
+        this.title.setClickable(b);
+        this.icon.setClickable(b);
+        this.setClickable(b);
     }
 }

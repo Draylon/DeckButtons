@@ -27,4 +27,6 @@ public class CustomPanel extends RelativeLayout {
     public void setColumns(int cols) {
         this.grid.setNumColumns(cols);
     }
+
+
 }

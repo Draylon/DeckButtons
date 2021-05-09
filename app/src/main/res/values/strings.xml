@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AuraPanel</string>
+    <string name="app_name">DeckButtons</string>
     <string name="custom_button_default_title">_Title_</string>
     <string name="button_bg_img">button bg image</string>
 </resources>

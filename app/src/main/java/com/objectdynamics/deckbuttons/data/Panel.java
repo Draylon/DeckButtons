@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import com.objectdynamics.deckbuttons.R;
 import com.objectdynamics.deckbuttons.ui_adapters.GridFillAdapter;
 import com.objectdynamics.deckbuttons.ui_components.CustomPanel;
+import com.objectdynamics.deckbuttons.util.comms.SocketSendBroadcast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +21,9 @@ import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
 
 public class Panel {
+    private static int sid=0;
+    public int _id;
+    public int get_id() {return _id;}
 
     private String name;
     private Image bg;
@@ -32,9 +36,12 @@ public class Panel {
     private JSONArray buttons_json;
     private boolean fillGrid;
     private int rows,cols;
-    private JSONArray buttons_staged_colors;
+    private JSONArray button_states_colors;
 
-    public Panel(Context ctx, JSONObject panel_data) throws JSONException {
+    public Panel(Context ctx, JSONObject panel_data, SocketSendBroadcast<String> sendBuffer) throws JSONException {
+        this._id=sid;
+        sid++;
+
         this.ctx=ctx;
         this.panel_data=panel_data;
         this.buttons_json = panel_data.getJSONArray("button_list");
@@ -44,28 +51,34 @@ public class Panel {
         this.cols=panel_data.getInt("cols");
 
         if(this.fillGrid){
-            PanelButton[] temp_buttons = new PanelButton[this.buttons_json.length()];
+            ArrayList<PanelButton> temp_buttons = new ArrayList<>();//PanelButton[this.buttons_json.length()];
             for (int iic = 0; iic < this.buttons_json.length(); iic++)
-                temp_buttons[iic] = new PanelButton(ctx, this.buttons_json.getJSONObject(iic));
-
+                temp_buttons.add(new PanelButton(ctx, this.buttons_json.getJSONObject(iic),sendBuffer));
             this.buttons = new PanelButton[this.rows*this.cols];
-            int iic=0;
+
             for(int iicx=0;iicx < this.rows;iicx++)
                 for(int iicy=0;iicy < this.cols;iicy++) {
                     int current_index = ((iicx*this.cols)+iicy);
-                    if(iic < temp_buttons.length){
-                        if(iicx == temp_buttons[iic].getPosition()[0] && iicy == temp_buttons[iic].getPosition()[1]) {
-                            this.buttons[current_index] = temp_buttons[iic];
-                            iic++;
-                        }else
-                            this.buttons[current_index] = new PanelButton(ctx, null);
-                    }else
-                        this.buttons[current_index] = new PanelButton(ctx, null);
+                    boolean matched=false;
+
+                    if(temp_buttons.size() > 0){
+                        for (PanelButton pb:temp_buttons) {
+                            if(iicx == pb.getPosition()[0] && iicy == pb.getPosition()[1]) {
+                                this.buttons[current_index] = pb;
+                                temp_buttons.remove(pb);
+                                matched=true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(!matched)
+                        this.buttons[current_index] = new PanelButton(ctx, null,sendBuffer);
                 }
-        }else {
+        }else{
             this.buttons = new PanelButton[this.buttons_json.length()];
             for (int iic = 0; iic < this.buttons_json.length(); iic++)
-                this.buttons[iic] = new PanelButton(ctx, this.buttons_json.getJSONObject(iic));
+                this.buttons[iic] = new PanelButton(ctx, this.buttons_json.getJSONObject(iic),sendBuffer);
         }
 
         gridFillAdapter = new GridFillAdapter(ctx,this.buttons);
@@ -74,7 +87,7 @@ public class Panel {
         this.view.setColumns(this.cols);
     }
 
-    public void setButtonSizes(Activity thread) throws InterruptedException {
+    public void setButtonSizes(Activity thread) throws InterruptedException{
         int gwidth,gheight;
         final GridView v1 = this.view.getGrid();
         final Semaphore vtree_lock = new Semaphore(1,true);

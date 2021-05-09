@@ -42,6 +42,44 @@
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:gravity="center" android:id="@+id/reconnecting_img"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/reconnecting_img_icon"
+                    app:srcCompat="@drawable/ic_launcher_foreground"/>
+            <TextView
+                    android:text="Reconectando..."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/reconnecting_img_text"
+                    android:textColor="#FFFFFF" android:textSize="20sp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:gravity="center" android:id="@+id/editor_img"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editor_img_icon"
+                    app:srcCompat="@drawable/ic_launcher_foreground"/>
+            <TextView
+                    android:text="Em edição"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/editor_img_text"
+                    android:textColor="#FFFFFF" android:textSize="20sp"/>
+        </LinearLayout>
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:gravity="center" android:id="@+id/loading_img"
                 android:visibility="visible"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
